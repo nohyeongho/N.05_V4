@@ -21,6 +21,11 @@
                 <li><a href="#gallery">갤러리</a></li>
                 <li><a href="#contact" class="btn-small">문의하기</a></li>
             </ul>
+            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </nav>
     </header>
 
@@ -356,6 +361,16 @@
     </div>
 
     <input type="file" id="hidden-file-input" style="display: none;" accept="image/*,video/*">
+
+    <div id="music-toggle" class="music-toggle">
+        <span class="music-icon">🎵</span>
+        <span class="music-text">Music Off</span>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <!-- Placeholder calm music. User can replace this with their own file. -->
+    </audio>
 
     <script src="script.js"></script>
 </body>

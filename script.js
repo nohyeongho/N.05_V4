@@ -211,4 +211,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
         galleryGrid.appendChild(newItem);
     }
+    // --- Mobile Menu Logic ---
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenuToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
+
+    // --- Music Toggle Logic ---
+    const musicToggle = document.getElementById('music-toggle');
+    const bgMusic = document.getElementById('bg-music');
+    const musicText = musicToggle ? musicToggle.querySelector('.music-text') : null;
+    let isMusicPlaying = false;
+
+    if (musicToggle && bgMusic) {
+        musicToggle.addEventListener('click', () => {
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                musicToggle.classList.remove('playing');
+                if (musicText) musicText.innerText = 'Music Off';
+            } else {
+                bgMusic.play().catch(err => console.log("Playback failed:", err));
+                musicToggle.classList.add('playing');
+                if (musicText) musicText.innerText = 'Music On';
+            }
+            isMusicPlaying = !isMusicPlaying;
+        });
+
+        // Autoplay on first user interaction
+        const startMusicOnce = () => {
+            if (!isMusicPlaying) {
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    musicToggle.classList.add('playing');
+                    if (musicText) musicText.innerText = 'Music On';
+                }).catch(err => {
+                    console.log("Autoplay blocked or failed:", err);
+                });
+            }
+            document.removeEventListener('click', startMusicOnce);
+        };
+        document.addEventListener('click', startMusicOnce);
+    }
 });
